@@ -1,3 +1,11 @@
+# FOMOS
+
+/!\ WIP /!\
+
+The FOMOS platform aims to offer scripts to automate the processing of music playlists. Each user can enable/disable the scripts they want and customize the script settings. Eventually, users will be able to suggest script ideas to add to FOMOS.
+
+# Next.js README
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

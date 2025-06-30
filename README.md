@@ -2,7 +2,74 @@
 
 /!\ WIP /!\
 
+## Context
+
 The FOMOS platform aims to offer scripts to automate the processing of music playlists. Each user can enable/disable the scripts they want and customize the script settings. Eventually, users will be able to suggest script ideas to add to FOMOS.
+
+## Technical documentation
+
+Stack technique Fomos :
+
+Frontend : Next.js (framework web pour app en React)
+Backend/API : Next.js (avec la fonction App Router)
+Auth (connexion, déco, création compte...) : bcrypt (hash mdp) et JWT (gestion token)
+Auth middleware (vérifie validité du token de connexion à chaque page) : JWT
+BDD/ORM : Prisma (pour utiliser facilement Postgres en web)
+
+Architecture :
+
+fomos/
+│
+├── prisma/
+│   └── schema.prisma          # Modèle de base de données
+│
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx         # Layout racine
+│   │   ├── page.tsx           # Page d'accueil
+│   │
+│   │   ├── login/
+│   │   │   └── page.tsx       # Page de connexion (front)
+│   │
+│   │   ├── register/
+│   │   │   └── page.tsx       # Page d'inscription (front)
+│   │
+│   │   ├── dashboard/
+│   │   │   └── page.tsx       # Page protégée après login
+│   │
+│   │   └── api/
+│   │       ├── login/
+│   │       │   └── route.ts   # API login (POST)
+│   │       ├── register/
+│   │       │   └── route.ts   # API register (POST)
+│   │       └── protected/
+│   │           └── route.ts   # Exemple d’API protégée (GET)
+│
+│   ├── lib/
+│   │   ├── prisma.ts          # Instance unique Prisma
+│   │   ├── auth.ts            # Fonctions JWT (sign/verify)
+│   │   └── hash.ts            # Bcrypt utils (optionnel)
+│
+│   ├── middleware.ts          # Auth middleware (JWT, cookies)
+│
+│   └── styles/                # Tes fichiers CSS si besoin
+│       └── globals.css
+│
+├── .env                       # Secrets (base, JWT, etc.)
+├── package.json
+├── next.config.js
+└── tsconfig.json
+
+## Useful commands for development
+
+* Lancer DB sur docker
+docker run --name fomos-db -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
+
+* Générer le shema prisma depuis l'app vers la DB
+npx prisma generate
+
+* Lancer app Next.js
+npm run dev
 
 # Next.js README
 

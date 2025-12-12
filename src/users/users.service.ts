@@ -32,10 +32,6 @@ export class UsersService {
         }
     }
 
-    async updateUser(userDto: UserDto) {
-        return
-    }
-
     async deleteUser(id: string) {
         try {
             await this.usersRepository.delete(id)

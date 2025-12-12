@@ -15,11 +15,6 @@ export class UsersController {
     async createUser(@Body() user: UserDto){
         return await this.usersService.createUser(user)
     }
-    
-    @Put()
-    async updateUser(@Body() user: UserDto){
-        return await this.usersService.updateUser(user)
-    }
 
     @Delete(":spotifyId")
     async deleteUser(@Param('spotifyId') id: string){

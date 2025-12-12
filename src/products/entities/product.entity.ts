@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { ProductScope } from "./product-scope.entity";
-import { UserProduct } from "src/users-products/user-product.entity";
+import { UserProduct } from "src/users-products/entities/user-product.entity";
 
 @Entity('products')
 export class Product {

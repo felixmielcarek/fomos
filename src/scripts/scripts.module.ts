@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ScriptsService } from './scripts.service';
+import { ScriptsService } from './service/scripts.service';
 
 @Module({
   providers: [ScriptsService],

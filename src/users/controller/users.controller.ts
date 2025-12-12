@@ -1,6 +1,6 @@
 import { Controller, Post, Request, Put, Delete, Body, Param, Get } from '@nestjs/common';
-import { UsersService } from './users.service';
-import type { UserDto } from 'src/models/user.models';
+import { UsersService } from '../service/users.service';
+import type { UserDto } from 'src/users/models/user.models';
 
 @Controller('users')
 export class UsersController {

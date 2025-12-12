@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { SpotifyDataService } from './spotify-data.service';
+import { SpotifyDataService } from './service/spotify-data.service';
 
 @Module({
   providers: [SpotifyDataService]

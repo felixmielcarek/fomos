@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { BigBrotherService } from './big-brother.service';
+import { BigBrotherService } from './service/big-brother.service';
 
 @Module({
   providers: [BigBrotherService]

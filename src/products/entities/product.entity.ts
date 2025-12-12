@@ -8,6 +8,9 @@ export class Product {
     clientId: string
 
     @Column()
+    clientSecret: string
+
+    @Column()
     redirectUri: string
 
     @OneToMany(() => ProductScope, (productScope) => productScope.product)

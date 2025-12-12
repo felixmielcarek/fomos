@@ -1,5 +1,13 @@
 # Development documentation
 
+## Roadmap
+
+To not forget:
+- tests
+- handle products codeSecret property privacy
+- error management
+
+
 ## Services
 
 ProductService:

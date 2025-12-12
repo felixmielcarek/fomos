@@ -18,12 +18,7 @@ export class ProductsController {
     async createProduct(@Body() product: ProductDto) {
         return await this.productsService.createProduct(product)
     }
-
-    @Put(":id")
-    updateProduct(@Param('product') product: ProductDto) {
-        return this.productsService.updateProduct(product)
-    }
-
+    
     @Put(":id/run")
     runProduct(@Param() params: any){
         return this.scriptsService.runScriptForAllUsers(params.id)

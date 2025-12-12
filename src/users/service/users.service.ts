@@ -9,14 +9,12 @@ export class UsersService {
     constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){}
 
     private toDto(entity: User): UserDto {
-        return { 
-            spotifyId: entity.spotifyId
-        }
+        return { userId: entity.userId }
     }
 
-    async getUser(spotifyId: string): Promise<UserDto | null>{
+    async getUser(userId: string): Promise<UserDto | null>{
         try {
-            const user = await this.usersRepository.findOneBy({spotifyId})
+            const user = await this.usersRepository.findOneBy({userId})
             return user === null ? null : this.toDto(user)
         } catch (error) {
             throw error

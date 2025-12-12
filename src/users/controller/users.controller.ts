@@ -6,9 +6,9 @@ import type { UserDto } from 'src/users/models/user.models';
 export class UsersController {
     constructor(private readonly usersService: UsersService){}
 
-    @Get(":spotifyId")
-    async getUser(@Param('spotifyId') spotifyId: string): Promise<UserDto | null> {
-        return await this.usersService.getUser(spotifyId)
+    @Get(":userId")
+    async getUser(@Param('userId') userId: string): Promise<UserDto | null> {
+        return await this.usersService.getUser(userId)
     }
 
     @Post()
@@ -16,8 +16,8 @@ export class UsersController {
         return await this.usersService.createUser(user)
     }
 
-    @Delete(":spotifyId")
-    async deleteUser(@Param('spotifyId') id: string){
+    @Delete(":userId")
+    async deleteUser(@Param('userId') id: string){
         return await this.usersService.deleteUser(id)
     }
 }

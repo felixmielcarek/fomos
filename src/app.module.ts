@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
-import { SpotifyDataModule } from './spotify-data/spotify-data.module';
+import { SpotifyUtilsModule } from './spotify-utils/spotify-utils.module';
 import { ScriptsModule } from './scripts/scripts.module';
 import { BigBrotherModule } from './big-brother/big-brother.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -29,7 +29,7 @@ import { UsersProductsModule } from './users-products/users-products.module';
     }),
     ProductsModule, 
     UsersModule, 
-    SpotifyDataModule, 
+    SpotifyUtilsModule, 
     ScriptsModule, 
     BigBrotherModule, UsersProductsModule],
   controllers: [AppController],

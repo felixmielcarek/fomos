@@ -11,18 +11,13 @@ export class UsersProductsController {
         return this.usersProductsService.getUserProducts()
     }
 
-    @Put(':productId/enable')
-    enableProduct(@Param('userId') userId: string, @Param('productId') productId: string) {
-        return this.usersProductsService.enableProduct(userId, productId)
-    }
-
     @Put(':productId/disable')
     disableProduct(@Param('userId') userId: string, @Param('productId') productId: string) {
         return this.usersProductsService.disableProduct(userId, productId)
     }
     
     @Put(":productId/configure")
-    configureProduct(@Param() params: any, @Query('userId') userId: string, @Body('config') config: string){
+    configureProduct(@Param() params: any, @Query('userId') userId: string, @Body() config: string){
         return
     }
 }

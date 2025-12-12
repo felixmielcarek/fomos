@@ -4,7 +4,7 @@ import { Entity, OneToMany, PrimaryColumn } from "typeorm";
 @Entity('users')
 export class User {
     @PrimaryColumn()
-    spotifyId: string
+    userId: string
 
     @OneToMany(() => UserProduct, (userProduct) => userProduct.user)
     userProducts: UserProduct[];

@@ -22,8 +22,9 @@ export class ProductsService {
     private toDto(entity: Product): ProductDto {
         return {
             clientId: entity.clientId,
+            clientSecret: entity.clientSecret,
             redirectUri: entity.redirectUri,
-            scopes: entity.productScopes.map(ps => ps.scope.name)
+            scopes: entity.productScopes.map(ps => ps.scope.name) || []
         }
     }
 
@@ -33,6 +34,18 @@ export class ProductsService {
             dtos.push(this.toDto(e))
         }
         return dtos
+    }
+
+    async getProduct(clientId: string): Promise<ProductDto | null>{
+        try {
+            const product = await this.productsRepository.findOne({
+                where: { clientId: clientId },
+                relations: ['productScopes', 'productScopes.scope']
+            })
+            return product === null ? null : this.toDto(product)
+        } catch (error) {
+            throw error
+        }
     }
     
     async getProducts(): Promise<ProductDto[]>{
@@ -45,13 +58,13 @@ export class ProductsService {
     }
 
     async createProduct(productDto: ProductDto) {
-        const { clientId, redirectUri, scopes: scope } = productDto;
+        const { clientId, clientSecret, redirectUri, scopes: scopes } = productDto;
         
         try {
-            const product = this.productsRepository.create({clientId, redirectUri})
+            const product = this.productsRepository.create({clientId, clientSecret, redirectUri})
             await this.productsRepository.save(product)
 
-            for (const s of scope) {
+            for (const s of scopes) {
                 let existingScope = await this.scopesRepository.findOne({ where: { name: s }})
 
                 if (!existingScope) {
@@ -66,21 +79,5 @@ export class ProductsService {
         } catch (error) {
             throw error
         }
-    }
-
-    updateProduct(product: ProductDto) {
-        return
-    }
-
-    getProductClientId(productName: string) {
-        return
-    }
-
-    getProductScope(productId: string) {
-        return
-    }
-
-    getProductRedirectUri(productId: string) {
-        return
     }
 }

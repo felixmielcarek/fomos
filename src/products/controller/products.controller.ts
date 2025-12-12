@@ -15,8 +15,8 @@ export class ProductsController {
     }
 
     @Post()
-    createProduct(@Body('product') product: ProductDto) {
-        return this.productsService.createProduct(product)
+    async createProduct(@Body() product: ProductDto) {
+        return await this.productsService.createProduct(product)
     }
 
     @Put(":id")

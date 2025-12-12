@@ -1,5 +1,5 @@
 export type ProductDto = {
     clientId: string
-    scope: string[]
+    scopes: string[]
     redirectUri: string
 }

@@ -17,7 +17,7 @@ export class UsersService {
     async getUser(spotifyId: string): Promise<UserDto | null>{
         try {
             const user = await this.usersRepository.findOneBy({spotifyId})
-            return user == null ? null : this.toDto(user)
+            return user === null ? null : this.toDto(user)
         } catch (error) {
             throw error
         }

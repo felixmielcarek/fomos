@@ -10,7 +10,7 @@ export class ProductsController {
         private readonly scriptsService: ScriptsService){}
 
     @Get()
-    getProducts(): ProductDto[] {
+    async getProducts(): Promise<ProductDto[]> {
         return this.productsService.getProducts()
     }
 

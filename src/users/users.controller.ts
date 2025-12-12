@@ -17,12 +17,12 @@ export class UsersController {
     }
     
     @Put()
-    updateUser(@Body() user: UserDto){
-        return this.usersService.updateUser(user)
+    async updateUser(@Body() user: UserDto){
+        return await this.usersService.updateUser(user)
     }
 
     @Delete(":spotifyId")
-    deleteUser(@Param('spotifyId') id: string){
-        return this.usersService.deleteUser(id)
+    async deleteUser(@Param('spotifyId') id: string){
+        return await this.usersService.deleteUser(id)
     }
 }

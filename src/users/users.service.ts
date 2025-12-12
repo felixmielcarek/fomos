@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>){}
+    constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){}
 
     private toDto(entity: User): UserDto {
         return { 
@@ -16,7 +16,7 @@ export class UsersService {
 
     async getUser(spotifyId: string): Promise<UserDto | null>{
         try {
-            const user = await this.userRepository.findOneBy({spotifyId})
+            const user = await this.usersRepository.findOneBy({spotifyId})
             return user == null ? null : this.toDto(user)
         } catch (error) {
             throw error
@@ -25,18 +25,22 @@ export class UsersService {
 
     async createUser(userDto: UserDto) {
         try {
-            const user = this.userRepository.create(userDto)
-            await this.userRepository.save(user)
+            const user = this.usersRepository.create(userDto)
+            await this.usersRepository.save(user)
         } catch (error) {
             throw error
         }
     }
 
-    updateUser(userDto: UserDto) {
+    async updateUser(userDto: UserDto) {
         return
     }
 
-    deleteUser(id: string) {
-        return
+    async deleteUser(id: string) {
+        try {
+            await this.usersRepository.delete(id)
+        } catch (error) {
+            throw error
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { Product } from "src/products/product.entity";
+import { Product } from "src/products/entities/product.entity";
 import { User } from "src/users/entities/user.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from "typeorm";
 

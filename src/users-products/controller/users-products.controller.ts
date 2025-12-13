@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Put, Query, Body } from '@nestjs/common';
 import { UsersProductsService } from '../service/users-products.service';
-import { UserProductDto } from 'src/users-products/models/user-product.models';
+import { UserProductDto } from 'src/users-products/dtos/user-product.dto';
 
 @Controller('users/:userId/products')
 export class UsersProductsController {

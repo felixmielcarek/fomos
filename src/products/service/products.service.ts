@@ -21,6 +21,7 @@ export class ProductsService {
 
     private toDto(entity: Product): ProductDto {
         return {
+            productId: entity.productId,
             clientId: entity.clientId,
             clientSecret: entity.clientSecret,
             redirectUri: entity.redirectUri,
@@ -36,10 +37,10 @@ export class ProductsService {
         return dtos
     }
 
-    async getProduct(clientId: string): Promise<ProductDto | null>{
+    async getProduct(productId: string): Promise<ProductDto | null>{
         try {
             const product = await this.productsRepository.findOne({
-                where: { clientId: clientId },
+                where: { productId: productId },
                 relations: ['productScopes', 'productScopes.scope']
             })
             return product === null ? null : this.toDto(product)
@@ -58,10 +59,10 @@ export class ProductsService {
     }
 
     async createProduct(productDto: ProductDto) {
-        const { clientId, clientSecret, redirectUri, scopes: scopes } = productDto;
+        const { productId, clientId, clientSecret, redirectUri, scopes: scopes } = productDto;
         
         try {
-            const product = this.productsRepository.create({clientId, clientSecret, redirectUri})
+            const product = this.productsRepository.create({productId, clientId, clientSecret, redirectUri})
             await this.productsRepository.save(product)
 
             for (const s of scopes) {

@@ -5,6 +5,9 @@ import { UserProduct } from "src/users-products/entities/user-product.entity";
 @Entity('products')
 export class Product {
     @PrimaryColumn()
+    productId: string
+    
+    @Column({ unique: true })
     clientId: string
 
     @Column()

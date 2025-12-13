@@ -13,11 +13,11 @@ export class SpotifyUtilsService {
         private readonly httpService: HttpService
     ){}
 
-    private async getTokens(clientId: string, code: string): Promise<{accessToken:string, refreshToken:string}> { 
-        const product = await this.productsService.getProduct(clientId)
+    private async getTokens(productId: string, code: string): Promise<{accessToken:string, refreshToken:string}> { 
+        const product = await this.productsService.getProduct(productId)
         if (product === null) throw error
 
-        const authHeader = Buffer.from(`${clientId}:${product.clientSecret}`).toString('base64')
+        const authHeader = Buffer.from(`${product.clientId}:${product.clientSecret}`).toString('base64')
         const body = new URLSearchParams({
             code,
             redirect_uri: product.redirectUri,
@@ -52,11 +52,11 @@ export class SpotifyUtilsService {
         return response.data.id
     }
 
-    async authorizationCodeCallback(clientId: string, code: string, state: string) {
+    async authorizationCodeCallback(productId: string, code: string, state: string) {
         if (state === null) return
 
-        const { accessToken, refreshToken } = await this.getTokens(clientId, code)
+        const { accessToken, refreshToken } = await this.getTokens(productId, code)
         const spotifyId = await this.getSpotifyId(accessToken)
-        this.usersProductsService.createUserProduct(spotifyId,clientId,accessToken, refreshToken)
+        this.usersProductsService.createUserProductFromSpotifyId(spotifyId,productId,accessToken, refreshToken)
     }
 }

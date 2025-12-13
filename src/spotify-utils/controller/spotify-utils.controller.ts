@@ -5,8 +5,8 @@ import { SpotifyUtilsService } from '../service/spotify-utils.service';
 export class SpotifyUtilsController {
     constructor(private readonly spotifyUtilsService: SpotifyUtilsService){}
 
-    @Get(":clientId/callback")
-    async authorizationCodeCallback(@Param('clientId') clientId: string, @Query('code') code: string, @Query('state') state: string) {
-        await this.spotifyUtilsService.authorizationCodeCallback(clientId, code, state)
+    @Get(":productId/callback")
+    async authorizationCodeCallback(@Param('productId') productId: string, @Query('code') code: string, @Query('state') state: string) {
+        await this.spotifyUtilsService.authorizationCodeCallback(productId, code, state)
     }        
 }

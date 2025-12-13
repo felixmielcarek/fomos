@@ -19,8 +19,8 @@ export class ProductsController {
         return await this.productsService.createProduct(product)
     }
     
-    @Put(":id/run")
+    @Put(":productId/run")
     runProduct(@Param() params: any){
-        return this.scriptsService.runScriptForAllUsers(params.id)
+        return this.scriptsService.runScriptForAllUsers(params.productId)
     }
 }

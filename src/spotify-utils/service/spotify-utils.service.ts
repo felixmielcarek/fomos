@@ -15,7 +15,7 @@ export class SpotifyUtilsService {
 
     private async getTokens(productId: string, code: string): Promise<{accessToken:string, refreshToken:string}> { 
         const product = await this.productsService.getProduct(productId)
-        if (product === null) throw error
+        if (!product) throw error
 
         const authHeader = Buffer.from(`${product.clientId}:${product.clientSecret}`).toString('base64')
         const body = new URLSearchParams({
@@ -53,7 +53,7 @@ export class SpotifyUtilsService {
     }
 
     async authorizationCodeCallback(productId: string, code: string, state: string) {
-        if (state === null) return
+        if (!state) return
 
         const { accessToken, refreshToken } = await this.getTokens(productId, code)
         const spotifyId = await this.getSpotifyId(accessToken)

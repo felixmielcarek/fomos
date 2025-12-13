@@ -4,8 +4,10 @@
 
 To not forget:
 - tests
-- handle products codeSecret property privacy
+- handle secrets property privacy
 - error management
+- logs
+- swaggerlike
 
 
 ## Services

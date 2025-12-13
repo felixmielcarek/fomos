@@ -28,7 +28,7 @@ export class UsersProductsService {
         try {
             const user = await this.usersRepository.findOneBy({ spotifyId })
             const product = await this.productsRepository.findOneBy({ productId })
-            if(user===null || product===null) return
+            if(!user || !product) return
 
             const userProduct = this.usersProductsRepository.create({
                 config: '',

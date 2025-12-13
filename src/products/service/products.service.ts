@@ -43,7 +43,7 @@ export class ProductsService {
                 where: { productId: productId },
                 relations: ['productScopes', 'productScopes.scope']
             })
-            return product === null ? null : this.toDto(product)
+            return !product ? null : this.toDto(product)
         } catch (error) {
             throw error
         }
@@ -52,7 +52,7 @@ export class ProductsService {
     async getProducts(): Promise<ProductDto[]>{
         try {
             const products = await this.productsRepository.find({ relations: ['productScopes', 'productScopes.scope'] })
-            return products === undefined ? [] : this.toDtos(products)
+            return !products ? [] : this.toDtos(products)
         } catch (error) {
             throw error
         }

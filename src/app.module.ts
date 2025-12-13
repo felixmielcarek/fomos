@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { SpotifyUtilsModule } from './spotify-utils/spotify-utils.module';
@@ -28,12 +26,6 @@ import { AuthModule } from './auth/auth.module';
         synchronize: true,
       })
     }),
-    ProductsModule, 
-    UsersModule, 
-    SpotifyUtilsModule, 
-    ScriptsModule, 
-    BigBrotherModule, UsersProductsModule, AuthModule],
-  controllers: [AppController],
-  providers: [AppService],
+    ProductsModule, UsersModule, SpotifyUtilsModule, ScriptsModule, BigBrotherModule, UsersProductsModule, AuthModule]
 })
 export class AppModule {}

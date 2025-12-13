@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/service/users.service';
-import { AuthBodyDto } from '../models/auth-body.models';
+import { AuthBodyDto } from '../dtos/auth-body.dto';
 import { compare } from 'bcrypt';
 
 @Injectable()

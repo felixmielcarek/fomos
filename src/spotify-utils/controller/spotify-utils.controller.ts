@@ -8,5 +8,5 @@ export class SpotifyUtilsController {
     @Get(":productId/callback")
     async authorizationCodeCallback(@Param('productId') productId: string, @Query('code') code: string, @Query('state') state: string) {
         await this.spotifyUtilsService.authorizationCodeCallback(productId, code, state)
-    }        
+    }
 }

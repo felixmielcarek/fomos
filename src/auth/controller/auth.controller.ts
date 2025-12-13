@@ -8,7 +8,7 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() authBody: AuthBodyDto) {
-        return this.authService.login(authBody)
+        return await this.authService.login(authBody)
     }
 
 }

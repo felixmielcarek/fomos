@@ -24,9 +24,9 @@ export class UsersProductsService {
         return []
     }
 
-    async createUserProduct(userId:string, clientId:string, accessToken:string, refreshToken:string) {
+    async createUserProduct(spotifyId:string, clientId:string, accessToken:string, refreshToken:string) {
         try {
-            const user = await this.usersRepository.findOneBy({ userId })
+            const user = await this.usersRepository.findOneBy({ spotifyId })
             const product = await this.productsRepository.findOneBy({ clientId })
             if(user===null || product===null) return
 

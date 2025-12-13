@@ -42,14 +42,13 @@ export class SpotifyUtilsService {
         }
     }
 
-    private async getUserId(accessToken: string): Promise<string> { 
+    private async getSpotifyId(accessToken: string): Promise<string> { 
         const response = await lastValueFrom(
             this.httpService.get(
                 'https://api.spotify.com/v1/me',
                 { headers: { 'Authorization': 'Bearer ' + accessToken }}
             )
         )
-
         return response.data.id
     }
 
@@ -57,7 +56,7 @@ export class SpotifyUtilsService {
         if (state === null) return
 
         const { accessToken, refreshToken } = await this.getTokens(clientId, code)
-        const userId = await this.getUserId(accessToken)
-        this.usersProductsService.createUserProduct(userId,clientId,accessToken, refreshToken)
+        const spotifyId = await this.getSpotifyId(accessToken)
+        this.usersProductsService.createUserProduct(spotifyId,clientId,accessToken, refreshToken)
     }
 }

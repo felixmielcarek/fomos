@@ -9,7 +9,11 @@ export class UsersService {
     constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){}
 
     private toDto(entity: User): UserDto {
-        return { userId: entity.userId }
+        return { 
+            userId: entity.userId,
+            spotifyId: entity.spotifyId,
+            userPassword: entity.userPassword
+        }
     }
 
     async getUser(userId: string): Promise<UserDto | null>{
@@ -30,9 +34,9 @@ export class UsersService {
         }
     }
 
-    async deleteUser(id: string) {
+    async deleteUser(userId: string) {
         try {
-            await this.usersRepository.delete(id)
+            await this.usersRepository.delete(userId)
         } catch (error) {
             throw error
         }

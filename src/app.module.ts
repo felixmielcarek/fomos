@@ -9,6 +9,7 @@ import { BigBrotherModule } from './big-brother/big-brother.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersProductsModule } from './users-products/users-products.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { UsersProductsModule } from './users-products/users-products.module';
     UsersModule, 
     SpotifyUtilsModule, 
     ScriptsModule, 
-    BigBrotherModule, UsersProductsModule],
+    BigBrotherModule, UsersProductsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

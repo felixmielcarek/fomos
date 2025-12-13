@@ -1,3 +1,5 @@
 export type UserDto = {
-    userId
+    userId: string,
+    spotifyId: string,
+    userPassword: string
 }

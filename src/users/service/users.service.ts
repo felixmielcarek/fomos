@@ -7,44 +7,40 @@ import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){}
+    constructor(
+        @InjectRepository(User)
+        private readonly usersRepository: Repository<User>,
+    ) {}
 
     private toDto(entity: User): UserDto {
-        return { 
+        return {
             userId: entity.userId,
             spotifyId: entity.spotifyId,
-            userPassword: entity.userPassword
-        }
+            userPassword: entity.userPassword,
+        };
     }
 
     private async hashPassword(password: string): Promise<string> {
-        return await hash(password, 10)
+        return await hash(password, 10);
     }
 
-    async getUser(userId: string): Promise<UserDto | null>{
-        try {
-            const user = await this.usersRepository.findOneBy({userId})
-            return !user ? null : this.toDto(user)
-        } catch (error) {
-            throw error
-        }
+    async getUser(userId: string): Promise<UserDto | null> {
+        const user = await this.usersRepository.findOneBy({ userId });
+        return !user ? null : this.toDto(user);
     }
 
     async createUser(userDto: UserDto) {
-        try {
-            const userHashedPassword = await this.hashPassword(userDto.userPassword)
-            const user = this.usersRepository.create({ ...userDto, userPassword: userHashedPassword })
-            await this.usersRepository.save(user)
-        } catch (error) {
-            throw error
-        }
+        const userHashedPassword = await this.hashPassword(
+            userDto.userPassword,
+        );
+        const user = this.usersRepository.create({
+            ...userDto,
+            userPassword: userHashedPassword,
+        });
+        await this.usersRepository.save(user);
     }
 
     async deleteUser(userId: string) {
-        try {
-            await this.usersRepository.delete(userId)
-        } catch (error) {
-            throw error
-        }
+        await this.usersRepository.delete(userId);
     }
 }

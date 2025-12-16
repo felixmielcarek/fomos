@@ -3,10 +3,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class BigBrotherService {
     runScript() {
-        return
+        return;
     }
 
     configureProduct(userId: string, config: string) {
-        return
+        return;
     }
 }

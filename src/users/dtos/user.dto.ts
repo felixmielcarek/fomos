@@ -1,5 +1,5 @@
 export type UserDto = {
-    userId: string,
-    spotifyId: string,
-    userPassword: string
-}
+    userId: string;
+    spotifyId: string;
+    userPassword: string;
+};

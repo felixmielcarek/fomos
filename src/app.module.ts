@@ -10,22 +10,29 @@ import { UsersProductsModule } from './users-products/users-products.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({isGlobal: true }), // env var accessible through all project
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],  // this DI guarantee that ConfigService is instanciated 
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USER'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '*/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      })
-    }),
-    ProductsModule, UsersModule, SpotifyUtilsModule, ScriptsModule, BigBrotherModule, UsersProductsModule, AuthModule]
+    imports: [
+        ConfigModule.forRoot({ isGlobal: true }), // env var accessible through all project
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService], // this DI guarantee that ConfigService is instanciated
+            useFactory: (configService: ConfigService) => ({
+                type: 'postgres',
+                host: configService.get<string>('DB_HOST'),
+                port: configService.get<number>('DB_PORT'),
+                username: configService.get<string>('DB_USER'),
+                password: configService.get<string>('DB_PASSWORD'),
+                database: configService.get<string>('DB_NAME'),
+                entities: [__dirname + '*/**/*.entity{.ts,.js}'],
+                synchronize: true,
+            }),
+        }),
+        ProductsModule,
+        UsersModule,
+        SpotifyUtilsModule,
+        ScriptsModule,
+        BigBrotherModule,
+        UsersProductsModule,
+        AuthModule,
+    ],
 })
 export class AppModule {}

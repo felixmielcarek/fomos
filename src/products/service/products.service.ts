@@ -9,15 +9,15 @@ import { ProductScope } from '../entities/product-scope.entity';
 @Injectable()
 export class ProductsService {
     constructor(
-        @InjectRepository(Product) 
+        @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
 
-        @InjectRepository(Scope) 
+        @InjectRepository(Scope)
         private readonly scopesRepository: Repository<Scope>,
 
-        @InjectRepository(ProductScope) 
+        @InjectRepository(ProductScope)
         private readonly productsScopesRepository: Repository<ProductScope>,
-    ){}
+    ) {}
 
     private toDto(entity: Product): ProductDto {
         return {
@@ -25,60 +25,65 @@ export class ProductsService {
             clientId: entity.clientId,
             clientSecret: entity.clientSecret,
             redirectUri: entity.redirectUri,
-            scopes: entity.productScopes.map(ps => ps.scope.name) || []
-        }
+            scopes: entity.productScopes.map((ps) => ps.scope.name) || [],
+        };
     }
 
     private toDtos(entities: Product[]): ProductDto[] {
-        let dtos: ProductDto[] = []
-        for(const e of entities) {
-            dtos.push(this.toDto(e))
+        const dtos: ProductDto[] = [];
+        for (const e of entities) {
+            dtos.push(this.toDto(e));
         }
-        return dtos
+        return dtos;
     }
 
-    async getProduct(productId: string): Promise<ProductDto | null>{
-        try {
-            const product = await this.productsRepository.findOne({
-                where: { productId: productId },
-                relations: ['productScopes', 'productScopes.scope']
-            })
-            return !product ? null : this.toDto(product)
-        } catch (error) {
-            throw error
-        }
+    async getProduct(productId: string): Promise<ProductDto | null> {
+        const product = await this.productsRepository.findOne({
+            where: { productId: productId },
+            relations: ['productScopes', 'productScopes.scope'],
+        });
+        return !product ? null : this.toDto(product);
     }
-    
-    async getProducts(): Promise<ProductDto[]>{
-        try {
-            const products = await this.productsRepository.find({ relations: ['productScopes', 'productScopes.scope'] })
-            return !products ? [] : this.toDtos(products)
-        } catch (error) {
-            throw error
-        }
+
+    async getProducts(): Promise<ProductDto[]> {
+        const products = await this.productsRepository.find({
+            relations: ['productScopes', 'productScopes.scope'],
+        });
+        return !products ? [] : this.toDtos(products);
     }
 
     async createProduct(productDto: ProductDto) {
-        const { productId, clientId, clientSecret, redirectUri, scopes: scopes } = productDto;
-        
-        try {
-            const product = this.productsRepository.create({productId, clientId, clientSecret, redirectUri})
-            await this.productsRepository.save(product)
+        const {
+            productId,
+            clientId,
+            clientSecret,
+            redirectUri,
+            scopes: scopes,
+        } = productDto;
 
-            for (const s of scopes) {
-                let existingScope = await this.scopesRepository.findOne({ where: { name: s }})
+        const product = this.productsRepository.create({
+            productId,
+            clientId,
+            clientSecret,
+            redirectUri,
+        });
+        await this.productsRepository.save(product);
 
-                if (!existingScope) {
-                    existingScope = this.scopesRepository.create({ name: s })
-                    await this.scopesRepository.save(existingScope)
-                }
+        for (const s of scopes) {
+            let existingScope = await this.scopesRepository.findOne({
+                where: { name: s },
+            });
 
-                const productScope = this.productsScopesRepository.create({ product: product, scope: existingScope })
-                await this.productsScopesRepository.save(productScope);
-                
+            if (!existingScope) {
+                existingScope = this.scopesRepository.create({ name: s });
+                await this.scopesRepository.save(existingScope);
             }
-        } catch (error) {
-            throw error
+
+            const productScope = this.productsScopesRepository.create({
+                product: product,
+                scope: existingScope,
+            });
+            await this.productsScopesRepository.save(productScope);
         }
     }
 }

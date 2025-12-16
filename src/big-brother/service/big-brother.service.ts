@@ -6,7 +6,7 @@ export class BigBrotherService {
         return;
     }
 
-    configureProduct(userId: string, config: string) {
+    /*configureProduct(userId: string, config: string) {
         return;
-    }
+    }*/
 }

@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 import { ProductsService } from 'src/products/service/products.service';
 import { UsersProductsService } from 'src/users-products/service/users-products.service';
+import { SpotifyApiTokenRes } from '../interfaces/spotify-api-token-res.interface';
+import { SpotifyMeRes } from '../interfaces/spotify-me-res.interface';
 
 @Injectable()
 export class SpotifyUtilsService {
@@ -29,7 +31,7 @@ export class SpotifyUtilsService {
         });
 
         const response = await lastValueFrom(
-            this.httpService.post(
+            this.httpService.post<SpotifyApiTokenRes>(
                 'https://accounts.spotify.com/api/token',
                 body.toString(),
                 {
@@ -48,9 +50,12 @@ export class SpotifyUtilsService {
 
     private async getSpotifyId(accessToken: string): Promise<string> {
         const response = await lastValueFrom(
-            this.httpService.get('https://api.spotify.com/v1/me', {
-                headers: { Authorization: 'Bearer ' + accessToken },
-            }),
+            this.httpService.get<SpotifyMeRes>(
+                'https://api.spotify.com/v1/me',
+                {
+                    headers: { Authorization: 'Bearer ' + accessToken },
+                },
+            ),
         );
         return response.data.id;
     }

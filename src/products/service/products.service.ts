@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Scope } from '../entities/scope.entity';
 import { ProductScope } from '../entities/product-scope.entity';
+import { ProductsIds } from '../enums/products-ids.enum';
 
 @Injectable()
 export class ProductsService {
@@ -53,6 +54,8 @@ export class ProductsService {
     }
 
     async createProduct(productDto: ProductDto) {
+        if (!ProductsIds[productDto.productId]) return;
+
         const {
             productId,
             clientId,

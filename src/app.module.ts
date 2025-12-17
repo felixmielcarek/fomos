@@ -3,11 +3,13 @@ import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { SpotifyUtilsModule } from './spotify-utils/spotify-utils.module';
 import { ScriptsModule } from './scripts/scripts.module';
-import { BigBrotherModule } from './big-brother/big-brother.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersProductsModule } from './users-products/users-products.module';
 import { AuthModule } from './auth/auth.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
     imports: [
@@ -26,13 +28,15 @@ import { AuthModule } from './auth/auth.module';
                 synchronize: true,
             }),
         }),
+        ScheduleModule.forRoot(),
+        EventEmitterModule.forRoot(),
         ProductsModule,
         UsersModule,
         SpotifyUtilsModule,
         ScriptsModule,
-        BigBrotherModule,
         UsersProductsModule,
         AuthModule,
+        SchedulerModule,
     ],
 })
 export class AppModule {}

@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 import { ProductsService } from 'src/products/service/products.service';
 import { UsersProductsService } from 'src/users-products/service/users-products.service';
-import { SpotifyApiTokenRes } from '../interfaces/spotify-api-token-res.interface';
-import { SpotifyMeRes } from '../interfaces/spotify-me-res.interface';
+import { SpotifyApiTokenRes } from '../interfaces/responses/spotify-api-token-res.interface';
+import { SpotifyMeRes } from '../interfaces/responses/spotify-me-res.interface';
 
 @Injectable()
 export class SpotifyUtilsService {
@@ -13,6 +13,8 @@ export class SpotifyUtilsService {
         private readonly usersProductsService: UsersProductsService,
         private readonly httpService: HttpService,
     ) {}
+
+    readonly spotifyRequestsLimit = 50;
 
     private async getTokens(
         productId: string,
@@ -58,6 +60,42 @@ export class SpotifyUtilsService {
             ),
         );
         return response.data.id;
+    }
+
+    async getRefreshedAccessToken(
+        userProductId: number,
+        clientId: string,
+        clientSecret: string,
+        refreshToken: string,
+    ): Promise<string> {
+        const authHeader = Buffer.from(`${clientId}:${clientSecret}`).toString(
+            'base64',
+        );
+        const body = new URLSearchParams({
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token',
+            client_id: clientId,
+        });
+
+        const response = await lastValueFrom(
+            this.httpService.post<SpotifyApiTokenRes>(
+                'https://accounts.spotify.com/api/token',
+                body.toString(),
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        Authorization: `Basic ${authHeader}`,
+                    },
+                },
+            ),
+        );
+
+        await this.usersProductsService.setTokens(userProductId, {
+            accessToken: response.data.access_token,
+            refreshToken: response.data.refresh_token,
+        });
+
+        return response.data.access_token;
     }
 
     async authorizationCodeCallback(

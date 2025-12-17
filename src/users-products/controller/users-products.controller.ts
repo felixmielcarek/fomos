@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 export class UsersProductsController {
     constructor(private readonly usersProductsService: UsersProductsService) {}
 
-    @UseGuards(AuthGuard)
+    /*@UseGuards(AuthGuard)
     @Get()
     getUserProducts(@Param('userId') userId: string): UserProductDto[] {
         return this.usersProductsService.getUserProducts();
@@ -38,5 +38,5 @@ export class UsersProductsController {
         @Body() config: string,
     ) {
         return;
-    }
+    }*/
 }

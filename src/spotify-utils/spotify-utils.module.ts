@@ -20,7 +20,8 @@ import { User } from 'src/users/entities/user.entity';
         TypeOrmModule.forFeature([UserProduct]),
         TypeOrmModule.forFeature([User]),
     ],
-    providers: [SpotifyUtilsService, ProductsService, UsersProductsService],
     controllers: [SpotifyUtilsController],
+    providers: [SpotifyUtilsService, ProductsService, UsersProductsService],
+    exports: [SpotifyUtilsService],
 })
 export class SpotifyUtilsModule {}

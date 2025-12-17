@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Product } from 'src/products/entities/product.entity';
+import { ProductsIds } from 'src/products/enums/products-ids.enum';
 
 @Injectable()
 export class UsersProductsService {
@@ -21,6 +22,55 @@ export class UsersProductsService {
 
     getUserProducts(): UserProductDto[] {
         return [];
+    }
+
+    private toDto(entity: UserProduct): UserProductDto {
+        return {
+            id: entity.id,
+            userId: entity.user.userId,
+            productId: entity.product.productId,
+            isEnabled: entity.isEnabled,
+            config: entity.config,
+            accessToken: entity.accessToken,
+            refreshToken: entity.refreshToken,
+        };
+    }
+
+    private toDtos(entities: UserProduct[]): UserProductDto[] {
+        const dtos: UserProductDto[] = [];
+        for (const e of entities) {
+            dtos.push(this.toDto(e));
+        }
+        return dtos;
+    }
+
+    async getProductUsers(productId: ProductsIds): Promise<UserProductDto[]> {
+        return this.toDtos(
+            await this.usersProductsRepository.find({
+                where: {
+                    isEnabled: true,
+                    product: {
+                        productId: productId,
+                    },
+                },
+                relations: {
+                    user: true,
+                    product: true,
+                },
+            }),
+        );
+    }
+
+    async setTokens(id: number, updates: Partial<UserProduct>) {
+        const userProduct = await this.usersProductsRepository.findOneBy({
+            id,
+        });
+
+        if (!userProduct) return;
+
+        Object.assign(userProduct, updates);
+
+        await this.usersProductsRepository.save(userProduct);
     }
 
     async createUserProductFromSpotifyId(
@@ -46,11 +96,11 @@ export class UsersProductsService {
         await this.usersProductsRepository.save(userProduct);
     }
 
-    async enableProduct(userId: string, clientId: string) {
+    /*async enableProduct(userId: string, clientId: string) {
         return;
     }
 
     disableProduct(userId: string, clientId: string) {
         return;
-    }
+    }*/
 }

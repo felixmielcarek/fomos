@@ -1,3 +1,3 @@
-export enum ProductsNames {
+export enum ProductsIds {
     BIGBROTHER = 'bigbrother',
 }

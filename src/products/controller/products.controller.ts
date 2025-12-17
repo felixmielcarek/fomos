@@ -8,16 +8,17 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from '../service/products.service';
-import { ScriptUtilityService } from 'src/scripts/service/script-utility.service';
 import type { ProductDto } from 'src/products/dtos/product.dto';
 import { AuthGuard } from 'src/auth/guard/auth.guard';
+import { ProductsIds } from '../enums/products-ids.enum';
+import { BigBrotherService } from 'src/scripts/service/bigbrother.service';
 
 @Controller('products')
 export class ProductsController {
     constructor(
         private readonly productsService: ProductsService,
-        private readonly scriptsService: ScriptUtilityService,
-    ) { }
+        private readonly bigBrotherService: BigBrotherService,
+    ) {}
 
     @Get()
     async getProducts(): Promise<ProductDto[]> {
@@ -30,9 +31,10 @@ export class ProductsController {
         return await this.productsService.createProduct(product);
     }
 
-    @UseGuards(AuthGuard)
+    //@UseGuards(AuthGuard)
     @Put(':productId/run')
-    runProduct(@Param() params: any) {
-        return this.scriptsService.runScriptForAllUsers(params.productId);
+    async runProduct(@Param('productId') productId: string) {
+        if (productId === ProductsIds.BIGBROTHER.toString())
+            await this.bigBrotherService.runScript();
     }
 }

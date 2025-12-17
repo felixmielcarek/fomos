@@ -3,7 +3,6 @@ import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { SpotifyUtilsModule } from './spotify-utils/spotify-utils.module';
 import { ScriptsModule } from './scripts/scripts.module';
-import { BigBrotherModule } from './big-brother/big-brother.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersProductsModule } from './users-products/users-products.module';
@@ -35,10 +34,9 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         UsersModule,
         SpotifyUtilsModule,
         ScriptsModule,
-        BigBrotherModule,
         UsersProductsModule,
         AuthModule,
         SchedulerModule,
     ],
 })
-export class AppModule { }
+export class AppModule {}

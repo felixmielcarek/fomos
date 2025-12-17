@@ -6,11 +6,10 @@ import { ProductsEvents } from '../enums/products-events.enum';
 
 @Injectable()
 export class SchedulerService {
-    constructor(private readonly eventEmitter: EventEmitter2) { }
+    constructor(private readonly eventEmitter: EventEmitter2) {}
 
     @Cron(Recurrences.EVERY_DAY_AT_MIDNIGHT)
-    runBigBrother() {
-        this.eventEmitter.emit(ProductsEvents.BIGBROTHER_EVENT)
+    triggerEveryDaysScripts() {
+        this.eventEmitter.emit(ProductsEvents.EVERY_DAYS_EVENT);
     }
-
 }

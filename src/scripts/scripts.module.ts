@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ScriptsService } from './service/scripts.service';
+import { ScriptUtilityService } from './service/script-utility.service';
+import { BigBrotherService } from './service/bigbrother.service';
 
 @Module({
-    providers: [ScriptsService],
-    exports: [ScriptsService],
+    providers: [ScriptUtilityService, BigBrotherService],
+    exports: [ScriptUtilityService, BigBrotherService],
 })
-export class ScriptsModule {}
+export class ScriptsModule { }

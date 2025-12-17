@@ -8,6 +8,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersProductsModule } from './users-products/users-products.module';
 import { AuthModule } from './auth/auth.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
     imports: [
@@ -26,6 +29,8 @@ import { AuthModule } from './auth/auth.module';
                 synchronize: true,
             }),
         }),
+        ScheduleModule.forRoot(),
+        EventEmitterModule.forRoot(),
         ProductsModule,
         UsersModule,
         SpotifyUtilsModule,
@@ -33,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
         BigBrotherModule,
         UsersProductsModule,
         AuthModule,
+        SchedulerModule,
     ],
 })
-export class AppModule {}
+export class AppModule { }

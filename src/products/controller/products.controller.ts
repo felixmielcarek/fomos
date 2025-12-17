@@ -8,7 +8,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from '../service/products.service';
-import { ScriptsService } from 'src/scripts/service/scripts.service';
+import { ScriptUtilityService } from 'src/scripts/service/script-utility.service';
 import type { ProductDto } from 'src/products/dtos/product.dto';
 import { AuthGuard } from 'src/auth/guard/auth.guard';
 
@@ -16,8 +16,8 @@ import { AuthGuard } from 'src/auth/guard/auth.guard';
 export class ProductsController {
     constructor(
         private readonly productsService: ProductsService,
-        private readonly scriptsService: ScriptsService,
-    ) {}
+        private readonly scriptsService: ScriptUtilityService,
+    ) { }
 
     @Get()
     async getProducts(): Promise<ProductDto[]> {

@@ -1,6 +1,9 @@
 export type UserProductDto = {
-    userId: string
-    productId: string
-    isEnabled: boolean
-    config: string
-}
+    id: number;
+    userId: string;
+    productId: string;
+    isEnabled: boolean;
+    config: string;
+    accessToken: string;
+    refreshToken: string;
+};

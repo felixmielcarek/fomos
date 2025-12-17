@@ -1,7 +1,7 @@
 export type ProductDto = {
-    productId: string,
-    clientId: string
-    clientSecret: string
-    scopes: string[]
-    redirectUri: string
-}
+    productId: string;
+    clientId: string;
+    clientSecret: string;
+    scopes: string[];
+    redirectUri: string;
+};

@@ -1,4 +1,4 @@
 export type AuthBodyDto = {
-    userId: string,
-    userPassword: string
-}
+    userId: string;
+    userPassword: string;
+};

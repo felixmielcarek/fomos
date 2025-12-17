@@ -4,11 +4,10 @@ import { AuthService } from '../service/auth.service';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService){}
+    constructor(private readonly authService: AuthService) {}
 
     @Post('login')
     async login(@Body() authBody: AuthBodyDto) {
-        return await this.authService.login(authBody)
+        return await this.authService.login(authBody);
     }
-
 }

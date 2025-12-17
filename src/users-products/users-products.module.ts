@@ -8,14 +8,13 @@ import { Product } from 'src/products/entities/product.entity';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([UserProduct]), 
-    TypeOrmModule.forFeature([User]), 
-    TypeOrmModule.forFeature([Product]),
-    AuthModule
-  ],
-  controllers: [UsersProductsController],
-  providers: [UsersProductsService],
-  exports: [UsersProductsService]
+    imports: [
+        TypeOrmModule.forFeature([UserProduct]),
+        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([Product]),
+    ],
+    controllers: [UsersProductsController],
+    providers: [UsersProductsService],
+    exports: [UsersProductsService],
 })
 export class UsersProductsModule {}

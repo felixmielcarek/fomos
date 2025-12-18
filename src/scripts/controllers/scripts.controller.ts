@@ -1,5 +1,5 @@
 import { Controller, Param, Put } from '@nestjs/common';
-import { BigBrotherService } from '../service/bigbrother.service';
+import { BigBrotherService } from '../services/bigbrother.service';
 import { ProductsIds } from 'src/products/enums/products-ids.enum';
 
 @Controller('scripts')

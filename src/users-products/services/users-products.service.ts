@@ -4,8 +4,8 @@ import { UserProduct } from '../entities/user-product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProductsIds } from 'src/products/enums/products-ids.enum';
-import { UsersService } from 'src/users/service/users.service';
-import { ProductsService } from 'src/products/service/products.service';
+import { UsersService } from 'src/users/services/users.service';
+import { ProductsService } from 'src/products/services/products.service';
 
 @Injectable()
 export class UsersProductsService {

@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { SpotifyUtilsService } from '../service/spotify-utils.service';
+import { SpotifyUtilsService } from '../services/spotify-utils.service';
 import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('utils')

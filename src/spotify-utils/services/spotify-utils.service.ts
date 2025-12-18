@@ -1,8 +1,8 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { ProductsService } from 'src/products/service/products.service';
-import { UsersProductsService } from 'src/users-products/service/users-products.service';
+import { ProductsService } from 'src/products/services/products.service';
+import { UsersProductsService } from 'src/users-products/services/users-products.service';
 import { SpotifyApiTokenRes } from '../interfaces/responses/spotify-api-token-res.interface';
 import { SpotifyMeRes } from '../interfaces/responses/spotify-me-res.interface';
 

@@ -38,10 +38,15 @@ export class ProductsService {
         return dtos;
     }
 
-    async getProduct(productId: string): Promise<ProductDto | null> {
+    async getProduct(
+        productId: string,
+        getRelations: boolean = true,
+    ): Promise<ProductDto | null> {
         const product = await this.productsRepository.findOne({
             where: { productId: productId },
-            relations: ['productScopes', 'productScopes.scope'],
+            relations: getRelations
+                ? ['productScopes', 'productScopes.scope']
+                : [],
         });
         return !product ? null : this.toDto(product);
     }

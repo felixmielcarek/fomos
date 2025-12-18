@@ -3,22 +3,19 @@ import { UserProductDto } from 'src/users-products/dtos/user-product.dto';
 import { UserProduct } from '../entities/user-product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
-import { Product } from 'src/products/entities/product.entity';
 import { ProductsIds } from 'src/products/enums/products-ids.enum';
+import { UsersService } from 'src/users/service/users.service';
+import { ProductsService } from 'src/products/service/products.service';
 
 @Injectable()
 export class UsersProductsService {
     constructor(
+        private readonly usersService: UsersService,
+        private readonly productsService: ProductsService,
+
         @InjectRepository(UserProduct)
         private readonly usersProductsRepository: Repository<UserProduct>,
-
-        @InjectRepository(User)
-        private readonly usersRepository: Repository<User>,
-
-        @InjectRepository(Product)
-        private readonly productsRepository: Repository<Product>,
-    ) { }
+    ) {}
 
     getUserProducts(): UserProductDto[] {
         return [];
@@ -79,10 +76,8 @@ export class UsersProductsService {
         accessToken: string,
         refreshToken: string,
     ) {
-        const user = await this.usersRepository.findOneBy({ spotifyId });
-        const product = await this.productsRepository.findOneBy({
-            productId,
-        });
+        const user = await this.usersService.getUserBySpotifyId(spotifyId);
+        const product = await this.productsService.getProduct(productId, false);
         if (!user || !product) return;
 
         const userProduct = this.usersProductsRepository.create({

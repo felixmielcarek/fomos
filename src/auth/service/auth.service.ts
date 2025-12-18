@@ -14,7 +14,7 @@ export class AuthService {
     async login(authBody: AuthBodyDto) {
         const { userId, userPassword } = authBody;
 
-        const user = await this.userService.getUser(userId);
+        const user = await this.userService.getUserByUserId(userId);
         if (!user) throw new Error();
 
         const isPasswordValid = await compare(userPassword, user.userPassword);

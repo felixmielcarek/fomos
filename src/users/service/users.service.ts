@@ -24,8 +24,13 @@ export class UsersService {
         return await hash(password, 10);
     }
 
-    async getUser(userId: string): Promise<UserDto | null> {
+    async getUserByUserId(userId: string): Promise<UserDto | null> {
         const user = await this.usersRepository.findOneBy({ userId });
+        return !user ? null : this.toDto(user);
+    }
+
+    async getUserBySpotifyId(spotifyId: string): Promise<UserDto | null> {
+        const user = await this.usersRepository.findOneBy({ spotifyId });
         return !user ? null : this.toDto(user);
     }
 

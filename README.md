@@ -2,16 +2,18 @@
 
 ## Architecture diagram
 
+Represent dependencies between modules. Each arrow means that the source module uses from the target module, the service labeled.
+
 ```mermaid
 flowchart TD
-    A -->|UsersService| F
-
     E -->|ProductsService| B
     E -->|UsersProductsService| G
 
     D -->|ProductsService| B
     D -->|SpotifyUtilsService| E
     D -->|UsersProductsService| G
+
+    A -->|UsersService| F
 
     A[AuthModule]
     B[ProductsModule]
@@ -20,6 +22,10 @@ flowchart TD
     F[UsersModule]
     G[UsersProductsModule]
 ```
+
+- Modules not being targeted should not export anything.
+- Modules targeted should only export their corresponding services.
+- Source modules should only import the modules they target.
 
 ## Environment variables
 

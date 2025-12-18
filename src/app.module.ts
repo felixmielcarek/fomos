@@ -10,7 +10,6 @@ import { AuthModule } from './auth/auth.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { RolesModule } from './roles/roles.module';
 
 @Module({
     imports: [
@@ -38,7 +37,6 @@ import { RolesModule } from './roles/roles.module';
         UsersProductsModule,
         AuthModule,
         SchedulerModule,
-        RolesModule,
-    ]
+    ],
 })
-export class AppModule { }
+export class AppModule {}

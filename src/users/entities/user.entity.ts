@@ -1,5 +1,6 @@
 import { UserProduct } from 'src/users-products/entities/user-product.entity';
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { UserRole } from './user-role.entity';
 
 @Entity('users')
 export class User {
@@ -14,4 +15,7 @@ export class User {
 
     @OneToMany(() => UserProduct, (userProduct) => userProduct.user)
     userProducts: UserProduct[];
+
+    @OneToMany(() => UserRole, (userRole) => userRole.user)
+    userRoles: UserRole[];
 }

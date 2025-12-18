@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, OneToMany } from 'typeorm';
 import { ProductScope } from './product-scope.entity';
 
-@Entity()
+@Entity('scopes')
 export class Scope {
     @PrimaryColumn()
     name: string;

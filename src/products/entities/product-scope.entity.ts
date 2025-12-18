@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Product } from './product.entity';
 import { Scope } from './scope.entity';
 
-@Entity()
+@Entity('products_scopes')
 export class ProductScope {
     @PrimaryGeneratedColumn()
     id: number;

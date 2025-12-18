@@ -1,41 +1,34 @@
 # Development documentation
 
-## Roadmap
+## Architecture diagram
 
-To not forget:
-- tests
-- handle products codeSecret property privacy
-- error management
+Represent dependencies between modules. Each arrow means that the source module uses from the target module, the service labeled.
 
+```mermaid
+flowchart TD
+    E -->|ProductsService| B
+    E -->|UsersProductsService| G
 
-## Services
+    D -->|ProductsService| B
+    D -->|SpotifyUtilsService| E
+    D -->|UsersProductsService| G
 
-ProductService:
-- getClientId
-- getScope
-- getRedirectUri
-- enableProduct		-> bb-server
-- disableProduct
+    G -->|ProductsService| B
+    G -->|UsersService| F
 
-UserService:
-- createUser
-- updateUser
-- deleteUser
+    A -->|UsersService| F
 
-SpotifyDataService:
-- getSpotifyId
+    A[AuthModule]
+    B[ProductsModule]
+    D[ScriptsModule]
+    E[SpotifyUtilsModule]
+    F[UsersModule]
+    G[UsersProductsModule]
+```
 
-ScriptService:
-- runScriptForAllUsers
-
-BigBrotherService:
-- runScript		-> bb-script
-- configureProduct
-
-## Controllers
-
-UsersController		/users
-ProductsController	/products/{product}
+- Modules not being targeted should not export anything.
+- Modules targeted should only export their corresponding services.
+- Source modules should only import the modules they target.
 
 ## Environment variables
 
@@ -47,8 +40,8 @@ DB_NAME=
 DB_USER=
 DB_PASSWORD=
 DB_PORT=
+JWT_SECRET=
 ```
-
 
 # Technical documentation
 

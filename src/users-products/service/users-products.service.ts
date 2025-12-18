@@ -18,7 +18,7 @@ export class UsersProductsService {
 
         @InjectRepository(Product)
         private readonly productsRepository: Repository<Product>,
-    ) {}
+    ) { }
 
     getUserProducts(): UserProductDto[] {
         return [];
@@ -96,11 +96,11 @@ export class UsersProductsService {
         await this.usersProductsRepository.save(userProduct);
     }
 
-    /*async enableProduct(userId: string, clientId: string) {
+    async enableProduct(userId: string, clientId: string) {
         return;
     }
 
-    disableProduct(userId: string, clientId: string) {
+    async disableProduct(userId: string, clientId: string) {
         return;
-    }*/
+    }
 }

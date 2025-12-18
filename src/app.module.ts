@@ -37,6 +37,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         UsersProductsModule,
         AuthModule,
         SchedulerModule,
-    ],
+    ]
 })
-export class AppModule {}
+export class AppModule { }

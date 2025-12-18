@@ -1,5 +1,26 @@
 # Development documentation
 
+## Architecture diagram
+
+```mermaid
+flowchart TD
+    A -->|UsersService| F
+
+    E -->|ProductsService| B
+    E -->|UsersProductsService| G
+
+    D -->|ProductsService| B
+    D -->|SpotifyUtilsService| E
+    D -->|UsersProductsService| G
+
+    A[AuthModule]
+    B[ProductsModule]
+    D[ScriptsModule]
+    E[SpotifyUtilsModule]
+    F[UsersModule]
+    G[UsersProductsModule]
+```
+
 ## Environment variables
 
 `.env`:

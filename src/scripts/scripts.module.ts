@@ -11,6 +11,10 @@ import { User } from 'src/users/entities/user.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { Scope } from 'src/products/entities/scope.entity';
 import { ProductScope } from 'src/products/entities/product-scope.entity';
+import { ProductsModule } from 'src/products/products.module';
+import { SpotifyUtilsModule } from 'src/spotify-utils/spotify-utils.module';
+import { UsersProductsModule } from 'src/users-products/users-products.module';
+import { ScriptsController } from './controller/scripts.controller';
 
 @Module({
     imports: [
@@ -20,14 +24,14 @@ import { ProductScope } from 'src/products/entities/product-scope.entity';
         TypeOrmModule.forFeature([Product]),
         TypeOrmModule.forFeature([Scope]),
         TypeOrmModule.forFeature([ProductScope]),
+        ProductsModule,
+        SpotifyUtilsModule,
+        UsersProductsModule
     ],
+    controllers: [ScriptsController],
     providers: [
         BigBrotherService,
-        UsersProductsService,
-        ProductsService,
         ScriptUtilityService,
-        SpotifyUtilsService,
-    ],
-    exports: [BigBrotherService, ScriptUtilityService],
+    ]
 })
-export class ScriptsModule {}
+export class ScriptsModule { }

@@ -17,10 +17,6 @@ export class UsersProductsService {
         private readonly usersProductsRepository: Repository<UserProduct>,
     ) {}
 
-    getUserProducts(): UserProductDto[] {
-        return [];
-    }
-
     private toDto(entity: UserProduct): UserProductDto {
         return {
             id: entity.id,

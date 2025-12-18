@@ -17,6 +17,7 @@ export class UsersService {
             userId: entity.userId,
             spotifyId: entity.spotifyId,
             userPassword: entity.userPassword,
+            role: entity.role,
         };
     }
 

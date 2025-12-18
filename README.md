@@ -13,6 +13,9 @@ flowchart TD
     D -->|SpotifyUtilsService| E
     D -->|UsersProductsService| G
 
+    G -->|ProductsService| B
+    G -->|UsersService| F
+
     A -->|UsersService| F
 
     A[AuthModule]

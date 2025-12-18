@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProductsIds } from 'src/products/enums/products-ids.enum';
+import { ProductId } from 'src/common/enums/product-id.enum';
 import { UserProductDto } from 'src/users-products/dtos/user-product.dto';
 import { UsersProductsService } from 'src/users-products/services/users-products.service';
 
@@ -7,7 +7,7 @@ import { UsersProductsService } from 'src/users-products/services/users-products
 export class ScriptUtilityService {
     constructor(private readonly usersProductsService: UsersProductsService) {}
 
-    async getSubscribers(productId: ProductsIds): Promise<UserProductDto[]> {
+    async getSubscribers(productId: ProductId): Promise<UserProductDto[]> {
         return await this.usersProductsService.getProductUsers(productId);
     }
 }

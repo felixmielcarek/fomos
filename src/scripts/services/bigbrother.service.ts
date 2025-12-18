@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ScriptUtilityService } from './script-utility.service';
 import { OnEvent } from '@nestjs/event-emitter';
-import { ProductsEvents } from 'src/scheduler/enums/products-events.enum';
-import { ProductsIds } from 'src/products/enums/products-ids.enum';
+import { ProductEvent } from 'src/scheduler/enums/product-event.enum';
+import { ProductId } from 'src/common/enums/product-id.enum';
 import { UserProductDto } from 'src/users-products/dtos/user-product.dto';
 import { SpotifyUtilsService } from 'src/spotify-utils/services/spotify-utils.service';
 import { ProductsService } from 'src/products/services/products.service';
@@ -21,7 +21,7 @@ export class BigBrotherService {
         private readonly httpService: HttpService,
     ) {}
 
-    private readonly productId: ProductsIds = ProductsIds.BIGBROTHER;
+    private readonly productId: ProductId = ProductId.BIGBROTHER;
     private readonly savedTracksTreshold: number = 0.6;
     private readonly concatenatedIdsLimit: number = 20;
 
@@ -163,7 +163,7 @@ export class BigBrotherService {
         await this.removeSavedTracksFromSavedAlbums(accessToken, savedAlbums);
     }
 
-    @OnEvent(ProductsEvents.EVERY_DAYS_EVENT)
+    @OnEvent(ProductEvent.EVERY_DAYS_EVENT)
     async runScript() {
         const product = await this.productsService.getProduct(this.productId);
 

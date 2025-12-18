@@ -1,6 +1,6 @@
 import { Controller, Param, Put } from '@nestjs/common';
 import { BigBrotherService } from '../services/bigbrother.service';
-import { ProductsIds } from 'src/products/enums/products-ids.enum';
+import { ProductId } from 'src/common/enums/product-id.enum';
 
 @Controller('scripts')
 export class ScriptsController {
@@ -9,7 +9,7 @@ export class ScriptsController {
     @Put(':productId/run')
     async runProduct(@Param('productId') productId: string) {
         switch (productId) {
-            case ProductsIds.BIGBROTHER.toString():
+            case ProductId.BIGBROTHER.toString():
                 await this.bigBrotherService.runScript();
                 break;
             default:

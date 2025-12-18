@@ -17,7 +17,6 @@ export class UsersService {
             userId: entity.userId,
             spotifyId: entity.spotifyId,
             userPassword: entity.userPassword,
-            roles: entity.userRoles.map((ur) => ur.role.name) || [],
         };
     }
 
@@ -39,6 +38,7 @@ export class UsersService {
         const userHashedPassword = await this.hashPassword(
             userDto.userPassword,
         );
+
         const user = this.usersRepository.create({
             ...userDto,
             userPassword: userHashedPassword,

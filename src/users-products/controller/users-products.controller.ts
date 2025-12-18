@@ -1,17 +1,10 @@
-import {
-    Controller,
-    Get,
-    Param,
-    Put,
-    Query,
-    Body,
-} from '@nestjs/common';
+import { Controller, Get, Param, Put, Query, Body } from '@nestjs/common';
 import { UsersProductsService } from '../service/users-products.service';
 import { UserProductDto } from 'src/users-products/dtos/user-product.dto';
 
 @Controller('users/:userId/products')
 export class UsersProductsController {
-    constructor(private readonly usersProductsService: UsersProductsService) { }
+    constructor(private readonly usersProductsService: UsersProductsService) {}
 
     @Get()
     getUserProducts(@Param('userId') userId: string): UserProductDto[] {

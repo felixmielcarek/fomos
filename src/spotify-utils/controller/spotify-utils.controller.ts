@@ -1,10 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SpotifyUtilsService } from '../service/spotify-utils.service';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('utils')
 export class SpotifyUtilsController {
     constructor(private readonly spotifyUtilsService: SpotifyUtilsService) {}
 
+    @Public()
     @Get(':productId/callback')
     async authorizationCodeCallback(
         @Param('productId') productId: string,

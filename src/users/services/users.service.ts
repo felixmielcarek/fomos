@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserDto } from 'src/users/dtos/user.dto';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
-import { hash } from 'bcrypt';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class UsersService {
@@ -16,13 +16,24 @@ export class UsersService {
         return {
             userId: entity.userId,
             spotifyId: entity.spotifyId,
-            userPassword: entity.userPassword,
+            userHashedPassword: entity.userHashedPassword,
             role: entity.role,
+            hashedRefreshToken: entity.hashedRefreshToken,
         };
     }
 
     private async hashPassword(password: string): Promise<string> {
-        return await hash(password, 10);
+        return await argon2.hash(password);
+    }
+
+    async updateHashedRefreshToken(
+        userId: string,
+        hashedRefreshToken: string | null,
+    ) {
+        return await this.usersRepository.update(
+            { userId },
+            { hashedRefreshToken },
+        );
     }
 
     async getUserByUserId(userId: string): Promise<UserDto | null> {
@@ -37,12 +48,12 @@ export class UsersService {
 
     async createUser(userDto: UserDto) {
         const userHashedPassword = await this.hashPassword(
-            userDto.userPassword,
+            userDto.userHashedPassword,
         );
 
         const user = this.usersRepository.create({
             ...userDto,
-            userPassword: userHashedPassword,
+            userHashedPassword: userHashedPassword,
         });
         await this.usersRepository.save(user);
     }

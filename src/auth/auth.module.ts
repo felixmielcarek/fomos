@@ -8,8 +8,10 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './guards/jwt-auth-guard';
-import { RolesGuard } from './guards/roles-guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { buildJwtOptionsByKey } from 'src/config/jwt-options.factory';
+import { RefreshJwtStrategy } from './strategies/refresh-jwt.strategy';
 
 @Module({
     imports: [
@@ -19,12 +21,8 @@ import { RolesGuard } from './guards/roles-guard';
 
         JwtModule.registerAsync({
             inject: [ConfigService],
-            useFactory: (configService: ConfigService) => ({
-                secret: configService.get('jwt.secret'),
-                signOptions: {
-                    expiresIn: configService.get('jwt.expiresIn'),
-                },
-            }),
+            useFactory: (configService: ConfigService) =>
+                buildJwtOptionsByKey(configService, 'jwt'),
         }),
     ],
     controllers: [AuthController],
@@ -32,6 +30,7 @@ import { RolesGuard } from './guards/roles-guard';
         AuthService,
         LocalStrategy,
         JwtStrategy,
+        RefreshJwtStrategy,
         {
             provide: APP_GUARD,
             useClass: JwtAuthGuard,

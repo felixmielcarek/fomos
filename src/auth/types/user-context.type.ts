@@ -1,6 +1,6 @@
 import { Role } from 'src/common/enums/roles.enum';
 
-export type AuthJwtPayload = {
-    sub: string;
+export interface UserContext {
+    userId: string;
     role: Role;
-};
+}

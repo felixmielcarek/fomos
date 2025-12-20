@@ -12,6 +12,6 @@ export function buildDatabaseOptions(
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.database'),
         entities: [__dirname + '*/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: true, // remove in prod
     };
 }

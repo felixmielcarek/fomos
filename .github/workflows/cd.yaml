@@ -5,8 +5,20 @@ on:
         branches: [main]
 
 jobs:
+    lint-commits:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Fetch all history for commit linting
+
+            - name: Lint commits # Lint commit messages
+              uses: wagoid/commitlint-github-action@v6
+
     release:
         runs-on: ubuntu-latest # Use the latest Ubuntu runner
+        needs: lint-commits # Wait for commit linting to pass
 
         permissions:
             contents: write # Allow semantic-release to push new tags
@@ -20,9 +32,6 @@ jobs:
                   node-version: 20
 
             - run: npm ci # Install dependencies
-
-            - name: Lint commits # Lint commit messages
-              uses: wagoid/commitlint-github-action@v6
 
             - run: npx semantic-release # Run semantic-release
               env:

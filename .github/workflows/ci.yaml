@@ -5,21 +5,27 @@ on:
     pull_request: # Trigger on pull requests to any branch
 
 jobs:
+    lint-commits:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Lint commits
+              uses: wagoid/commitlint-github-action@v6
+
     test:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v4 # Check out the repository
-              with:
-                  fetch-depth: 0 # Fetch all history for commit linting
+            - uses: actions/checkout@v4
 
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
 
-            - run: npm ci # Install dependencies
-
-            - name: Lint commits # Lint commit messages
-              uses: wagoid/commitlint-github-action@v6
+            - run: npm ci
 
             - run: npm test --if-present # Run tests if present

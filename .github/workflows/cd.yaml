@@ -1,0 +1,29 @@
+name: CD
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    release:
+        runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+        permissions:
+            contents: write # Allow semantic-release to push new tags
+            issues: write # Allow semantic-release to create GitHub releases
+            pull-requests: write # Allow semantic-release to update pull requests
+
+        steps:
+            - uses: actions/checkout@v4 # Check out the repository
+            - uses: actions/setup-node@v4 # Set up Node.js
+              with:
+                  node-version: 20
+
+            - run: npm ci # Install dependencies
+
+            - name: Lint commits # Lint commit messages
+              uses: wagoid/commitlint-github-action@v6
+
+            - run: npx semantic-release # Run semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication

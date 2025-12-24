@@ -1,20 +1,25 @@
 name: CI
 
 on:
-    push:
-    pull_request:
+    push: # Trigger on pushes to any branch
+    pull_request: # Trigger on pull requests to any branch
 
 jobs:
     test:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v4 # Check out the repository
+              with:
+                  fetch-depth: 0 # Fetch all history for commit linting
 
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
 
-            - run: npm ci
+            - run: npm ci # Install dependencies
 
-            - run: npm test --if-present
+            - name: Lint commits # Lint commit messages
+              uses: wagoid/commitlint-github-action@v6
+
+            - run: npm test --if-present # Run tests if present

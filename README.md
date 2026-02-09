@@ -6,15 +6,15 @@ Represent dependencies between modules. Each arrow means that the source module 
 
 ```mermaid
 flowchart TD
-    E -->|ProductsService| B
-    E -->|UsersProductsService| G
-
     D -->|ProductsService| B
     D -->|SpotifyUtilsService| E
     D -->|UsersProductsService| G
 
     G -->|ProductsService| B
     G -->|UsersService| F
+
+    E -->|ProductsService| B
+    E -->|UsersProductsService| G
 
     A -->|UsersService| F
 
